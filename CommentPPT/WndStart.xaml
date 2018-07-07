@@ -17,10 +17,9 @@
         FontFamily="{DynamicResource MaterialDesignFont}" WindowStartupLocation="CenterScreen" MinWidth="800" MinHeight="450" Loaded="Window_Loaded"
         >
     <Grid>
-        <StackPanel Grid.Column="0" VerticalAlignment="Center">
-            <Button Name="BtnExplorer" Content="浏览"   Margin="120,30,120,30" Click="BtnExplorer_Click"/>
-            <ListBox Name="LstPPT" BorderThickness="1" BorderBrush="Black"  Margin="60,10,60,30" MinHeight="250" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="LstPPT_SelectionChanged"/>
-        </StackPanel>
+
+        <Button Name="BtnExplorer" Content="浏览"   Margin="50,30,50,350" Click="BtnExplorer_Click" VerticalContentAlignment="Center" VerticalAlignment="Top"  />
+        <ListBox Name="LstPPT" BorderThickness="1" BorderBrush="Black"  Margin="50,100,50,20" MinHeight="250" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="LstPPT_SelectionChanged"/>
 
     </Grid>
 </Window>
