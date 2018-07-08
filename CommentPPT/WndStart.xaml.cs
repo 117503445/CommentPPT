@@ -28,14 +28,6 @@ namespace CommentPPT
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-
-
-
-
-
-
-
             for (int i = App.LstPaths.Count-1; i>=0; i--)
             {
                 if (!File.Exists(App.LstPaths[i]))
@@ -44,8 +36,6 @@ namespace CommentPPT
                 }
             }
             LstPPT.ItemsSource = App.LstPaths;
-
-
         }
         private void BtnExplorer_Click(object sender, RoutedEventArgs e)
         {

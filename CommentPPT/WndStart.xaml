@@ -18,8 +18,8 @@
         >
     <Grid>
 
-        <Button Name="BtnExplorer" Content="浏览"   Margin="50,30,50,350" Click="BtnExplorer_Click" VerticalContentAlignment="Center" VerticalAlignment="Top"  />
-        <ListBox Name="LstPPT" BorderThickness="1" BorderBrush="Black"  Margin="50,100,50,20" MinHeight="250" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="LstPPT_SelectionChanged"/>
+        <Button Name="BtnExplorer" Content="浏览"   Margin="50,20,50,350" MinHeight="30" Click="BtnExplorer_Click" VerticalContentAlignment="Center" VerticalAlignment="Top"  />
+        <ListBox Name="LstPPT" BorderThickness="1" BorderBrush="Black"  Margin="50,80,50,40" MinHeight="250" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="LstPPT_SelectionChanged"/>
 
     </Grid>
 </Window>
