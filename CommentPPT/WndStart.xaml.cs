@@ -14,7 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using TLib.Software;
-using PPt = Microsoft.Office.Interop.PowerPoint;
+using ppt = Microsoft.Office.Interop.PowerPoint;
+using System.Runtime.InteropServices;
+
 namespace CommentPPT
 {
     /// <summary>
@@ -36,6 +38,10 @@ namespace CommentPPT
                 }
             }
             LstPPT.ItemsSource = App.LstPaths;
+            if (PPT.TryGetApplication()!=null)
+            {
+                TurnToWdPPT();
+            }
         }
         private void BtnExplorer_Click(object sender, RoutedEventArgs e)
         {
@@ -63,14 +69,18 @@ namespace CommentPPT
             var temp = App.LstPaths[0];
             App.LstPaths[0] = App.LstPaths[index];
             App.LstPaths[index] = temp;
-
             System.Diagnostics.Process.Start(path);
+            TurnToWdPPT();
         }
-
         private void LstPPT_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             OpenPPT((string)LstPPT.SelectedItem);
-            
         }
+        private void TurnToWdPPT() {
+            WndPPT wndPPT = new WndPPT();
+            wndPPT.Show();
+            Close();
+        }
+
     }
 }

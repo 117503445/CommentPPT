@@ -81,6 +81,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PPT.cs" />
     <Compile Include="WndPPT.xaml.cs">
       <DependentUpon>WndPPT.xaml</DependentUpon>
     </Compile>
