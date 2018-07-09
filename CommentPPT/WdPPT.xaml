@@ -29,21 +29,26 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="45"/>
                 <ColumnDefinition Width="45"/>
-                <ColumnDefinition Width="202.5"/>
+                <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="202.5"/>
                 <ColumnDefinition Width="45"/>
                 <ColumnDefinition Width="45"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="2">
-                <Button Height="40" Width="40" Margin="0,2,0,3" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
-            Click="ButtonUP_Click" VerticalContentAlignment="Stretch" BorderBrush="Black"    >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button  Grid.Column="0" Height="40" Width="40"  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+            Click="ButtonUP_Click" VerticalContentAlignment="Center" BorderBrush="Black" VerticalAlignment="Center"     >
                     <Button.Background>
                         <ImageBrush ImageSource="pack://application:,,,/Resources/Left.png"/>
                     </Button.Background>
                 </Button>
-
-                <Button Height="40" Width="40" Margin="40,2,0,3" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonDown_Click" BorderBrush="Black">
+                <Label Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Background="#00000000" Foreground="#DD00D1FF">23/24</Label>
+                <Button Grid.Column="2"  Height="40" Width="40" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="ButtonDown_Click" BorderBrush="Black" VerticalAlignment="Center" >
                     <Button.Background>
                         <ImageBrush ImageSource="pack://application:,,,/Resources/Right.png"/>
                     </Button.Background>
