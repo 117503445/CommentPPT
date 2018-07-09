@@ -22,9 +22,9 @@ namespace CommentPPT
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class WndStart : Window
+    public partial class WdStart : Window
     {
-        public WndStart()
+        public WdStart()
         {
             InitializeComponent();
         }
@@ -77,7 +77,7 @@ namespace CommentPPT
             OpenPPT((string)LstPPT.SelectedItem);
         }
         private void TurnToWdPPT() {
-            WndPPT wndPPT = new WndPPT();
+            WdPPT wndPPT = new WdPPT();
             wndPPT.Show();
             Close();
         }

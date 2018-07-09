@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -69,11 +70,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="WndPPT.xaml">
+    <Page Include="WdPPT.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WndStart.xaml">
+    <Page Include="WdStart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -82,11 +83,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PPT.cs" />
-    <Compile Include="WndPPT.xaml.cs">
-      <DependentUpon>WndPPT.xaml</DependentUpon>
+    <Compile Include="WdPPT.xaml.cs">
+      <DependentUpon>WdPPT.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WndStart.xaml.cs">
-      <DependentUpon>WndStart.xaml</DependentUpon>
+    <Compile Include="WdStart.xaml.cs">
+      <DependentUpon>WdStart.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -120,9 +121,14 @@
   <ItemGroup>
     <Content Include="DLL\TLib.dll" />
     <Content Include="DLL\TLib.pdb" />
+    <None Include="Resources\Right.png" />
+    <None Include="Resources\Left.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestPPT\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
