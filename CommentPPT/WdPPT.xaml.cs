@@ -77,8 +77,21 @@ namespace CommentPPT
                     return;
                 }
                 UpdateSlideIndex();
-                TbInfo.Text = $"name={presentation.Name}{Environment.NewLine}" +
-                $"slideIndex={slideIndex}";
+                if (!IsPPtOpened())
+                {
+                    PPtClosed();
+                    return;
+                }
+                try
+                {
+                    TbInfo.Text = $"name={presentation.Name}{Environment.NewLine}" +
+               $"slideIndex={slideIndex}";
+                }
+                catch (Exception ex)
+                {
+                    TLib.Software.Logger.WriteException(ex);
+                }
+               
             };
 
             //获得演示文稿对象
@@ -165,10 +178,19 @@ namespace CommentPPT
             }
             catch
             {
-                // 在阅读模式下出现异常时，通过下面的方式来获得当前选中的幻灯片对象
-                slide = pptApplication.SlideShowWindows[1].View.Slide;
-                slideIndex = slide.SlideIndex;
+                try
+                {
+                    // 在阅读模式下出现异常时，通过下面的方式来获得当前选中的幻灯片对象
+                    slide = pptApplication.SlideShowWindows[1].View.Slide;
+                    slideIndex = slide.SlideIndex;
+                }
+                catch
+                {
+                    Console.WriteLine("Fail UpdateSlideIndex");
+                }
+
             }
+
         }
         /// <summary>
         /// PPT还打开吗?

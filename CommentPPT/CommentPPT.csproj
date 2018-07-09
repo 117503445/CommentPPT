@@ -121,8 +121,8 @@
   <ItemGroup>
     <Content Include="DLL\TLib.dll" />
     <Content Include="DLL\TLib.pdb" />
-    <None Include="Resources\Right.png" />
-    <None Include="Resources\Left.png" />
+    <Resource Include="Resources\Right.png" />
+    <Resource Include="Resources\Left.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

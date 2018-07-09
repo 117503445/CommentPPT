@@ -12,25 +12,57 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
+      
         FontFamily="{DynamicResource MaterialDesignFont}" 
         
         
         
-        Title="WndPPT" Height="450" Width="800" Loaded="Window_Loaded" Topmost="True">
-    <Grid >
+        Title="WndPPT" Height="450" Width="800" Loaded="Window_Loaded" Topmost="True" WindowState="Maximized" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
-        <TextBlock Name="TbInfo" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBlock>
-        <Button Height="40" Width="40" Margin="0" Grid.Row="1" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
-            Click="ButtonUP_Click" VerticalContentAlignment="Stretch"    >
-            <Image Source="/Resources/Left.png" ></Image>
-            
-            
-        </Button>
-        <Button Height="40" Width="40" Margin="40,0,0,0" Grid.Row="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Down" Click="ButtonDown_Click">
-        </Button>
+        <TextBlock Name="TbInfo" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#DD00FF74" Margin="20">INFO</TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="45"/>
+                <ColumnDefinition Width="45"/>
+                <ColumnDefinition Width="202.5"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="202.5"/>
+                <ColumnDefinition Width="45"/>
+                <ColumnDefinition Width="45"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="2">
+                <Button Height="40" Width="40" Margin="0,2,0,3" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
+            Click="ButtonUP_Click" VerticalContentAlignment="Stretch" BorderBrush="Black"    >
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Resources/Left.png"/>
+                    </Button.Background>
+                </Button>
+
+                <Button Height="40" Width="40" Margin="40,2,0,3" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonDown_Click" BorderBrush="Black">
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Resources/Right.png"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+            <Grid Grid.Column="4">
+                <Button Height="40" Width="40" Margin="0,2,0,3" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
+            Click="ButtonUP_Click" VerticalContentAlignment="Stretch" BorderBrush="Black"    >
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Resources/Left.png"/>
+                    </Button.Background>
+                </Button>
+
+                <Button Height="40" Width="40" Margin="40,2,0,3" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonDown_Click" BorderBrush="Black">
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Resources/Right.png"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
