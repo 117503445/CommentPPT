@@ -69,7 +69,7 @@ namespace CommentPPT
             }
 
             DispatcherTimer dispatcherTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1), IsEnabled = true };
-            dispatcherTimer.Tick += (s, arg) =>
+            dispatcherTimer.Tick += (sder, arg) =>
             {
                 if (!IsPPtOpened())
                 {
@@ -77,6 +77,7 @@ namespace CommentPPT
                     return;
                 }
                 UpdateSlideIndex();
+
                 if (!IsPPtOpened())
                 {
                     PPtClosed();
@@ -86,12 +87,16 @@ namespace CommentPPT
                 {
                     TbInfo.Text = $"name={presentation.Name}{Environment.NewLine}" +
                $"slideIndex={slideIndex}";
+                    string s = slideIndex.ToString() + "/" + slidesCount.ToString();
+                    LbLeft.Content = s;
+                    LbRight.Content = s;
+
                 }
                 catch (Exception ex)
                 {
                     TLib.Software.Logger.WriteException(ex);
                 }
-               
+
             };
 
             //获得演示文稿对象
@@ -165,6 +170,9 @@ namespace CommentPPT
                 }
             }
         }
+        /// <summary>
+        /// 刷新ppt的index
+        /// </summary>
         private void UpdateSlideIndex()
         {
 
@@ -207,5 +215,9 @@ namespace CommentPPT
             App.Current.Shutdown();
         }
 
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
     }
 }

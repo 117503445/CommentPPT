@@ -121,6 +121,7 @@
   <ItemGroup>
     <Content Include="DLL\TLib.dll" />
     <Content Include="DLL\TLib.pdb" />
+    <Resource Include="Resources\Close.png" />
     <Resource Include="Resources\Right.png" />
     <Resource Include="Resources\Left.png" />
   </ItemGroup>
