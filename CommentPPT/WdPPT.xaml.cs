@@ -26,27 +26,68 @@ namespace CommentPPT
         /// <summary>
         /// 定义PowerPoint应用程序对象
         /// </summary>
-        ppt.Application pptApplication;
+        private ppt.Application pptApplication;
         /// <summary>
         /// 定义演示文稿对象
         /// </summary>
-        ppt.Presentation presentation;
+        private ppt.Presentation presentation;
         /// <summary>
         /// 定义幻灯片集合对象
         /// </summary>
-        ppt.Slides slides;
+        private ppt.Slides slides;
         /// <summary>
         /// 定义单个幻灯片对象
         /// </summary>
-        ppt.Slide slide;
+        private ppt.Slide slide;
         /// <summary>
         /// 幻灯片的数量
         /// </summary>
-        int slidesCount;
+        private int slidesCount;
         /// <summary>
         /// 幻灯片的索引
         /// </summary>
-        int slideIndex;
+        private int slideIndex;
+        private int selectedIndex;
+
+        private InkCanvas[] inks;
+
+        private int SelectedIndex
+        {
+            get { return selectedIndex; }
+            set
+            {
+                selectedIndex = value;
+                var btns = new Button[] { BtnMouse, BtnPen, BtnEraser };
+                for (int i = 0; i < btns.Length; i++)
+                {
+                    if (i == value)
+                    {
+                        btns[i].BorderThickness = new Thickness(1);
+                    }
+                    else
+                    {
+                        btns[i].BorderThickness = new Thickness(0);
+                    }
+                }
+                switch (value)
+                {
+                    case 0:
+                        BtnMouse.BorderThickness = new Thickness(1);
+
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        throw new Exception("???");
+
+                }
+
+
+
+            }
+        }
         public WdPPT()
         {
             InitializeComponent();
@@ -68,6 +109,22 @@ namespace CommentPPT
                 App.Current.Shutdown();
             }
 
+            //获得演示文稿对象
+            presentation = pptApplication.ActivePresentation;
+            // 获得幻灯片对象集合
+            slides = presentation.Slides;
+            // 获得幻灯片的数量
+            slidesCount = slides.Count;
+
+            inks = new InkCanvas[slidesCount];
+            foreach (var ink in inks)
+            {
+                var i = ink;
+                i = new InkCanvas();
+                i.Opacity = 0.1;
+
+                GMain.Children.Add(i);
+            }
             DispatcherTimer dispatcherTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1), IsEnabled = true };
             dispatcherTimer.Tick += (sder, arg) =>
             {
@@ -96,16 +153,18 @@ namespace CommentPPT
                 {
                     TLib.Software.Logger.WriteException(ex);
                 }
-
+                
+                SelectedIndex = 0;//默认选择鼠标模式
             };
 
-            //获得演示文稿对象
-            presentation = pptApplication.ActivePresentation;
-            // 获得幻灯片对象集合
-            slides = presentation.Slides;
-            // 获得幻灯片的数量
-            slidesCount = slides.Count;
 
+
+
+
+        }
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
         }
         private void ButtonUP_Click(object sender, RoutedEventArgs e)
         {
@@ -137,6 +196,7 @@ namespace CommentPPT
                 slideIndex = 1;
                 WdMessageBox.Display("Info", "已经到了第一页", "", "", "哦");
             }
+            UpdateSlideIndex();
         }
         private void ButtonDown_Click(object sender, RoutedEventArgs e)
         {
@@ -169,6 +229,7 @@ namespace CommentPPT
 
                 }
             }
+            UpdateSlideIndex();
         }
         /// <summary>
         /// 刷新ppt的index
@@ -198,6 +259,24 @@ namespace CommentPPT
                 }
 
             }
+            finally
+            {
+                if (inks!=null&&inks[0]!=null)//确认完成了初始化
+                {
+                    for (int i = 0; i < inks.Length; i++)
+                    {
+                        if (i == slideIndex)
+                        {
+                            inks[i].Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            inks[i].Visibility = Visibility.Collapsed;
+                        }
+                    }
+                }
+
+            }
 
         }
         /// <summary>
@@ -207,7 +286,9 @@ namespace CommentPPT
         {
             return PPT.TryGetApplication() != null;
         }
-
+        /// <summary>
+        /// PPT关闭以后,关闭程序
+        /// </summary>
         private void PPtClosed()
         {
             //WdMessageBox.Display("Error", "PPt已关闭", "真是不幸");
@@ -215,9 +296,19 @@ namespace CommentPPT
             App.Current.Shutdown();
         }
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnMouse_Click(object sender, RoutedEventArgs e)
         {
-            App.Current.Shutdown();
+            SelectedIndex = 0;
+        }
+
+        private void BtnPen_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedIndex = 1;
+        }
+
+        private void BtnEraser_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedIndex = 2;
         }
     }
 }

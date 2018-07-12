@@ -18,7 +18,7 @@
         
         
         Title="WndPPT" Height="450" Width="800" Loaded="Window_Loaded" Topmost="True" WindowState="Maximized" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
-    <Grid>
+    <Grid Name="GMain">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="45"/>
@@ -54,6 +54,24 @@
                     </Button.Background>
                 </Button>
             </Grid>
+            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Name="BtnMouse" Width="40" Height="40" BorderThickness="0" BorderBrush="#FF2FB6CB" Click="BtnMouse_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Resources/Mouse.png" />
+                    </Button.Background>
+                </Button>
+                <Button Name="BtnPen" Width="40" Height="40" BorderThickness="0" BorderBrush="#FF2FB6CB" Click="BtnPen_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Resources/Pen.png" />
+                    </Button.Background>
+                </Button>
+                <Button Name="BtnEraser" Width="40" Height="40" BorderThickness="0" BorderBrush="#FF2FB6CB" Click="BtnEraser_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Resources/Eraser.png" />
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+            
             <Grid Grid.Column="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -66,7 +84,7 @@
                         <ImageBrush ImageSource="pack://application:,,,/Resources/Left.png" Opacity="0.3"/>
                     </Button.Background>
                 </Button>
-                <Label Name="LbRight" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Background="#00000000" Foreground="#DD00D1FF">23/24</Label>
+                <Label Name="LbRight" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#00000000" Foreground="#DD00D1FF" HorizontalAlignment="Center" VerticalAlignment="Center">23/24</Label>
                 <Button Grid.Column="2"  Height="40" Width="40" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="ButtonDown_Click" BorderBrush="White" VerticalAlignment="Center" >
                     <Button.Background>
                         <ImageBrush ImageSource="pack://application:,,,/Resources/Right.png" Opacity="0.3"/>
