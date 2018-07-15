@@ -56,8 +56,13 @@ namespace CommentPPT
             get { return selectedIndex; }
             set
             {
-                selectedIndex = value;
+
                 var btns = new Button[] { BtnMouse, BtnPen, BtnEraser };
+                var menus = new Control[] { BtnClearAll };
+                foreach (var item in menus)
+                {
+                    item.Visibility = Visibility.Hidden;
+                }
                 for (int i = 0; i < btns.Length; i++)
                 {
                     if (i == value)
@@ -69,23 +74,20 @@ namespace CommentPPT
                         btns[i].BorderThickness = new Thickness(0);
                     }
                 }
-                switch (value)
+                if (value == selectedIndex)
                 {
-                    case 0:
-                        BtnMouse.BorderThickness = new Thickness(1);
-
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        throw new Exception("???");
-
+                    if (value == 1)
+                    {
+                        
+                    }
+                    else if (value == 2)
+                    {
+                        BtnClearAll.Visibility = Visibility.Visible;
+                    }
                 }
-
-
-
+                UpdateInks();
+                //UpdateSlideIndex();
+                selectedIndex = value;
             }
         }
         public WdPPT()
@@ -94,7 +96,7 @@ namespace CommentPPT
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 8; i++)
             {
                 pptApplication = PPT.TryGetApplication();
                 if (pptApplication != null)
@@ -117,14 +119,17 @@ namespace CommentPPT
             slidesCount = slides.Count;
 
             inks = new InkCanvas[slidesCount];
-            foreach (var ink in inks)
+            for (int i = 0; i < inks.Length; i++)
             {
-                var i = ink;
-                i = new InkCanvas();
-                i.Opacity = 0.1;
+                inks[i] = new InkCanvas
+                {
+                    Background = new SolidColorBrush(Color.FromArgb(1, 0, 0, 0)),
 
-                GMain.Children.Add(i);
+                };
+                inks[i].SetValue(Grid.RowSpanProperty, 2);
+                GMain.Children.Add(inks[i]);
             }
+            Canvas.SetZIndex(GBottom, 1);
             DispatcherTimer dispatcherTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1), IsEnabled = true };
             dispatcherTimer.Tick += (sder, arg) =>
             {
@@ -153,11 +158,9 @@ namespace CommentPPT
                 {
                     TLib.Software.Logger.WriteException(ex);
                 }
-                
-                SelectedIndex = 0;//默认选择鼠标模式
             };
 
-
+            SelectedIndex = 0;//默认选择鼠标模式
 
 
 
@@ -236,7 +239,6 @@ namespace CommentPPT
         /// </summary>
         private void UpdateSlideIndex()
         {
-
             try
             {
                 // 在普通视图下这种方式可以获得当前选中的幻灯片对象
@@ -261,21 +263,7 @@ namespace CommentPPT
             }
             finally
             {
-                if (inks!=null&&inks[0]!=null)//确认完成了初始化
-                {
-                    for (int i = 0; i < inks.Length; i++)
-                    {
-                        if (i == slideIndex)
-                        {
-                            inks[i].Visibility = Visibility.Visible;
-                        }
-                        else
-                        {
-                            inks[i].Visibility = Visibility.Collapsed;
-                        }
-                    }
-                }
-
+                UpdateInks();
             }
 
         }
@@ -294,6 +282,33 @@ namespace CommentPPT
             //WdMessageBox.Display("Error", "PPt已关闭", "真是不幸");
             //MessageBox.Show("PPT已关闭");
             App.Current.Shutdown();
+        }
+
+        private void UpdateInks()
+        {
+            if (inks != null && inks[0] != null)//确认完成了初始化
+            {
+                for (int i = 0; i < inks.Length; i++)
+                {
+
+                    if (i == slideIndex && SelectedIndex != 0)
+                    {
+                        inks[i].Visibility = Visibility.Visible;
+                        if (SelectedIndex == 1)
+                        {
+                            inks[i].EditingMode = InkCanvasEditingMode.Ink;
+                        }
+                        else if (SelectedIndex == 2)
+                        {
+                            inks[i].EditingMode = InkCanvasEditingMode.EraseByStroke;
+                        }
+                    }
+                    else
+                    {
+                        inks[i].Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
         }
 
         private void BtnMouse_Click(object sender, RoutedEventArgs e)

@@ -14,9 +14,7 @@
         TextOptions.TextRenderingMode="Auto"        
       
         FontFamily="{DynamicResource MaterialDesignFont}" 
-        
-        
-        
+         
         Title="WndPPT" Height="450" Width="800" Loaded="Window_Loaded" Topmost="True" WindowState="Maximized" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
     <Grid Name="GMain">
         <Grid.RowDefinitions>
@@ -25,7 +23,19 @@
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
         <TextBlock Name="TbInfo" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#DD00FF74" Margin="20">INFO</TextBlock>
-        <Grid Grid.Row="1">
+        <Button Name="BtnClearAll" Width="300" HorizontalAlignment="Center" VerticalAlignment="Bottom" d:IsHidden="True" >CLEAR ALL</Button>
+        <Grid Name="GPenMenu" Width="150" VerticalAlignment="Bottom" Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <UniformGrid Columns="4" Rows="4" Grid.Column="0" >
+
+
+            </UniformGrid>
+        </Grid>
+
+        <Grid Name="GBottom" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="45"/>
                 <ColumnDefinition Width="45"/>
@@ -71,7 +81,7 @@
                     </Button.Background>
                 </Button>
             </StackPanel>
-            
+
             <Grid Grid.Column="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -92,11 +102,12 @@
                 </Button>
             </Grid>
             <Button Name="BtnClose" Grid.Column="6" Height="45" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnClose_Click" BorderBrush="White">
-         
-                    <Button.Background>
-                        <ImageBrush ImageSource="pack://application:,,,/Resources/Close.png"/>
-                    </Button.Background>
-               </Button>
+
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/Close.png"/>
+                </Button.Background>
+            </Button>
         </Grid>
     </Grid>
+
 </Window>
