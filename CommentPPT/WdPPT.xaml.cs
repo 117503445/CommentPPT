@@ -44,7 +44,7 @@ namespace CommentPPT
         /// </summary>
         private int slidesCount;
         /// <summary>
-        /// 幻灯片的索引
+        /// 幻灯片的索引.第一页为1
         /// </summary>
         private int slideIndex;
         private int selectedIndex;
@@ -118,7 +118,7 @@ namespace CommentPPT
             // 获得幻灯片的数量
             slidesCount = slides.Count;
 
-            inks = new InkCanvas[slidesCount];
+            inks = new InkCanvas[slidesCount+1];//slideIndex从1开始
             for (int i = 0; i < inks.Length; i++)
             {
                 inks[i] = new InkCanvas
@@ -283,14 +283,16 @@ namespace CommentPPT
             //MessageBox.Show("PPT已关闭");
             App.Current.Shutdown();
         }
-
+        /// <summary>
+        ///更新inks的状态
+        /// </summary>
         private void UpdateInks()
         {
             if (inks != null && inks[0] != null)//确认完成了初始化
             {
+                //Console.WriteLine(slideIndex);
                 for (int i = 0; i < inks.Length; i++)
                 {
-
                     if (i == slideIndex && SelectedIndex != 0)
                     {
                         inks[i].Visibility = Visibility.Visible;
@@ -309,6 +311,12 @@ namespace CommentPPT
                     }
                 }
             }
+            Console.WriteLine("!!");
+            foreach (var item in inks)
+            {
+                Console.WriteLine(item.Visibility);
+            }
+            Console.WriteLine("!!");
         }
 
         private void BtnMouse_Click(object sender, RoutedEventArgs e)
@@ -324,6 +332,11 @@ namespace CommentPPT
         private void BtnEraser_Click(object sender, RoutedEventArgs e)
         {
             SelectedIndex = 2;
+        }
+
+        private void BtnClearAll_Click(object sender, RoutedEventArgs e)
+        {
+            inks[slideIndex].Strokes.Clear();
         }
     }
 }

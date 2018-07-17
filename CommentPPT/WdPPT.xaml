@@ -23,7 +23,7 @@
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
         <TextBlock Name="TbInfo" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#DD00FF74" Margin="20">INFO</TextBlock>
-        <Button Name="BtnClearAll" Width="300" HorizontalAlignment="Center" VerticalAlignment="Bottom" d:IsHidden="True" >CLEAR ALL</Button>
+        <Button Name="BtnClearAll" Width="300" HorizontalAlignment="Center" VerticalAlignment="Bottom" d:IsHidden="True" Panel.ZIndex="2" Click="BtnClearAll_Click">CLEAR ALL</Button>
         <Grid Name="GPenMenu" Width="150" VerticalAlignment="Bottom" Height="100">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
