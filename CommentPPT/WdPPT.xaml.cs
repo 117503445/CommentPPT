@@ -49,6 +49,9 @@ namespace CommentPPT
         private int slideIndex;
         private int selectedIndex;
 
+
+
+
         private InkCanvas[] inks;
 
         private int SelectedIndex
@@ -78,7 +81,7 @@ namespace CommentPPT
                 {
                     if (value == 1)
                     {
-                        
+
                     }
                     else if (value == 2)
                     {
@@ -90,6 +93,9 @@ namespace CommentPPT
                 selectedIndex = value;
             }
         }
+
+        Button[] btnsColor = new Button[25];
+
         public WdPPT()
         {
             InitializeComponent();
@@ -118,7 +124,7 @@ namespace CommentPPT
             // 获得幻灯片的数量
             slidesCount = slides.Count;
 
-            inks = new InkCanvas[slidesCount+1];//slideIndex从1开始
+            inks = new InkCanvas[slidesCount + 1];//slideIndex从1开始
             for (int i = 0; i < inks.Length; i++)
             {
                 inks[i] = new InkCanvas
@@ -159,11 +165,43 @@ namespace CommentPPT
                     TLib.Software.Logger.WriteException(ex);
                 }
             };
-
+            Color[] colors = new Color[] {Colors.Black,Colors.DarkGray,Colors.Gray,Colors.LightGray,Colors.White,
+            Colors.Red,Colors.OrangeRed,Colors.Orange,Colors.Gold,Colors.Yellow,
+            Colors.LawnGreen,Colors.Green,Colors.SeaGreen,Colors.DeepSkyBlue,Colors.Blue,
+            Colors.Tomato,Colors.Violet,Colors.LightYellow,Colors.LightGreen,Colors.LightBlue,
+            Colors.Pink,Colors.RosyBrown,Colors.Chocolate,Colors.Brown,Colors.Purple, };
+            for (int i = 0; i < btnsColor.Length; i++)
+            {
+                btnsColor[i] = new Button
+                {
+                    Background = new SolidColorBrush(colors[i]),
+                    Name = "BtnColor" + i
+                };
+                btnsColor[i].Click += (s, arg) =>
+                {
+                    Button b = (Button)s;
+                    int index = int.Parse(b.Name.Substring(8));
+                    for (int t = 0; t < btnsColor.Length; t++)
+                    {
+                        if (index == t)
+                        {
+                            btnsColor[t].BorderThickness = new Thickness(2);
+                        }
+                        else
+                        {
+                            btnsColor[t].BorderThickness = new Thickness(0);
+                        }
+                    }
+                    foreach (var item in inks)
+                    {
+                        item.DefaultDrawingAttributes.Color = colors[index];
+                    }
+                };
+                UGColor.Children.Add(btnsColor[i]);
+                //Grid.SetColumn(btns[i],0);
+                //Grid.SetRow(btns[i], 0);
+            }
             SelectedIndex = 0;//默认选择鼠标模式
-
-
-
         }
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -177,7 +215,7 @@ namespace CommentPPT
             }
             catch
             {
-                WdMessageBox.Display("Error", "PPt已关闭", "真是不幸");
+                WdMessageBox.Display("Error", "PPT已关闭", "真是不幸");
                 App.Current.Shutdown();
             }
             if (slideIndex >= 1)
@@ -209,7 +247,7 @@ namespace CommentPPT
             }
             catch
             {
-                WdMessageBox.Display("Error", "PPt已关闭", "真是不幸");
+                WdMessageBox.Display("Error", "PPT已关闭", "真是不幸");
                 App.Current.Shutdown();
             }
             if (slideIndex > slidesCount)
@@ -311,32 +349,34 @@ namespace CommentPPT
                     }
                 }
             }
-            Console.WriteLine("!!");
-            foreach (var item in inks)
-            {
-                Console.WriteLine(item.Visibility);
-            }
-            Console.WriteLine("!!");
         }
-
         private void BtnMouse_Click(object sender, RoutedEventArgs e)
         {
             SelectedIndex = 0;
         }
-
         private void BtnPen_Click(object sender, RoutedEventArgs e)
         {
             SelectedIndex = 1;
         }
-
         private void BtnEraser_Click(object sender, RoutedEventArgs e)
         {
             SelectedIndex = 2;
         }
-
         private void BtnClearAll_Click(object sender, RoutedEventArgs e)
         {
             inks[slideIndex].Strokes.Clear();
+        }
+        private void SldThick_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (inks == null)
+            {
+                return;
+            }
+            foreach (var item in inks)
+            {
+                item.DefaultDrawingAttributes.Width = SldThick.Value;
+                item.DefaultDrawingAttributes.Height = SldThick.Value;
+            }
         }
     }
 }
